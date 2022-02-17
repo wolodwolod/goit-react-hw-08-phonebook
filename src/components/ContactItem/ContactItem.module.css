@@ -1,0 +1,23 @@
+.ContactItem {
+  display: flex;
+  align-items: center;
+
+  font-weight: 500;
+}
+.ContactItem:not(:last-child) {
+  margin-bottom: 0px;
+}
+
+.ContactItem__btn {
+  height: 20px;
+  margin-left: 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: red;
+}
+
+.ContactItem__btn:hover {
+  background-color: rgb(247, 112, 103);
+  color: black;
+  transition: all 0.3s;
+}
