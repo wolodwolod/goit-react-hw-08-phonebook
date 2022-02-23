@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 // import s from './Section.module.css'
 
@@ -12,4 +13,4 @@ Section.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
-export default Section;
+export default memo(Section);
