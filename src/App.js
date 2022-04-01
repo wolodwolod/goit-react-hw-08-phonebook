@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { nanoid } from 'nanoid'
 import Section from 'components/Section'
 import ContactForm from 'components/ContactForm'
@@ -16,26 +16,27 @@ function App () {
   ]);
   const [filter, setFilter] = useState('');
  
-// Если LocalStorage не пустой, переносим контакты в State; 
- 
-  useEffect(() => {
-    const contacts = localStorage.getItem('contacts');
-    const parsedСontacts = JSON.parse(contacts);
 
-    if (parsedСontacts) {
-      setContacts(parsedСontacts);
-    }
-    return;
-  }, []);
+  const firstRenderRef = useRef(true);
 
-// При изменении (добавлении) контактов в State, копируем contacts в LocalStorage;
-  
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
-  
-  // Добавление контакта в State
-  // Проверка на наличие в State вводимых данных 
+    useEffect(()=> {
+        if(firstRenderRef.current) {
+            // console.log("first  render")
+            const data = localStorage.getItem("contacts");
+            const parsedСontacts = JSON.parse(data);
+            // parseBooks && parseBooks.length
+            if(parsedСontacts?.length) {
+                setContacts(parsedСontacts); 
+            }
+            firstRenderRef.current = false;
+        }
+        else {
+            // console.log("second  render")
+            localStorage.setItem("contacts", JSON.stringify(contacts))
+        }
+    }, [contacts])
+
+
  const addContact = ({ name, number }) => {
   
    const normalizedInputName = name.toLowerCase();
@@ -50,13 +51,17 @@ function App () {
     if (findNumber) {
       return alert(`This phone number is already in contacts!`);
     }
-    // Проверив, вносим контакт в State, сохранив предыдущие контакты 
-      setContacts([...contacts, {
+    // Проверив, вносим контакт в State и localStorage, сохранив предыдущие контакты 
+      
+   
+   setContacts([...contacts, {
       id: nanoid(),
       name,
       number,
-    }]);
-  };
+      }]);
+  //  console.log(contacts);
+  //  localStorage.setItem('contacts', JSON.stringify(contacts));
+     };
    
   // Список отфильтрованных контактов
     const filterContacts = () => {
