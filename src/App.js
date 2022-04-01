@@ -1,10 +1,11 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { nanoid } from 'nanoid'
 import Section from 'components/Section'
 import ContactForm from 'components/ContactForm'
 import ContactList from 'components/ContactList'
 import Filter from 'components/Filter'
+
 
 function App () {
 
@@ -37,7 +38,7 @@ function App () {
     }, [contacts])
 
 
- const addContact = ({ name, number }) => {
+ const addContact =  ({ name, number }) => {
   
    const normalizedInputName = name.toLowerCase();
     const findName = contacts.find(
@@ -59,9 +60,7 @@ function App () {
       name,
       number,
       }]);
-  //  console.log(contacts);
-  //  localStorage.setItem('contacts', JSON.stringify(contacts));
-     };
+       };
    
   // Список отфильтрованных контактов
     const filterContacts = () => {
@@ -74,12 +73,12 @@ function App () {
   };
     
 // Вносим в State вводимое значение Filter  
-    const handleFilter = e => {
+    const handleFilter = useCallback ( (e) => {
     setFilter(e.currentTarget.value);
-    };
+    }, []);
     
 // Удаляем контакт из State
-  const deleteContact = id => {
+  const deleteContact =  id => {
       setContacts(
       contacts.filter(contact => contact.id !== id)
     ); 

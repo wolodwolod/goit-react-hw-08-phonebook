@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid'
+// import { nanoid } from 'nanoid'
 import ContactItem from 'components/ContactItem';
+// import { memo } from 'react';
 
 
 const ContactList = ({ contacts, DeleteContact }) => {
-  
-contacts.defaultProps = {
-      id: nanoid(),
-      name: "Name is unknown",
-      number: "Tel. number is unknown"
-};  
+  console.log('rend ContList')
+ContactList.defaultProps = {
+    contacts: []
+}
+ 
 
   return (
     <ul>
@@ -39,3 +39,6 @@ ContactList.propTypes = {
   };
 
 export default ContactList;
+
+
+

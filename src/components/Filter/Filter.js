@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import s from './Filter.module.css';
+import { memo } from 'react';
 
 function Filter({ filter, onChange }) {
+  console.log('rend Filter')
   return (
     <label className={s.Filter__label}>
       Find contacts by name
@@ -14,4 +16,4 @@ Filter.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
-export default Filter;
+export default memo(Filter);

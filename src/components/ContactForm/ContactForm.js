@@ -3,13 +3,14 @@ import React, { useState } from 'react';
 import s from './ContactForm.module.css';
 
 function PhoneBook({ onSubmit }) {
+  // console.log('render PhoneBook')
   
   const [contacts, setContacts] = useState({
     name: '',
     number: '',
   })
   
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.currentTarget;
     switch (name) {
       case 'name': setContacts(prev => {
@@ -31,14 +32,14 @@ function PhoneBook({ onSubmit }) {
 
     
   const handleSubmit = e => {
-        e.preventDefault();
+    e.preventDefault();
         
     onSubmit({ name: contacts.name, number: contacts.number });
     setContacts({
       name: '',
       number: '',
-      });
-    }
+    });
+  };
     
     return (
         <form className={s.Form}
