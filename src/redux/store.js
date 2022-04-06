@@ -1,9 +1,13 @@
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
-import reduser from "./reduser";
+import contactReducer from "./contacts/contacts-slice";
 
 
-const store = createStore(reduser);
+const store = configureStore({
+    reducer: {
+        contacts:contactReducer
+    }
+})
 
 console.log(store.getState())
     

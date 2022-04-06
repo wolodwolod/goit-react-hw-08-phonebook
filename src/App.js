@@ -5,18 +5,19 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import Section from 'components/Section';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
+import { getAllContacts } from 'redux/contacts/contacts-selectors';
 
 
-import actions from 'redux/actions';
+import { actions } from 'redux/contacts/contacts-slice';
 
 
 function App () {
-
    
-  const contacts = useSelector(store => store.contacts, shallowEqual);
+  const contacts = useSelector(getAllContacts, shallowEqual);
   const dispatch = useDispatch();
   
   const setContacts = useCallback((payload) => {
+    console.log(payload);
     const action = actions.set(payload);
     dispatch(action);
   }, [dispatch]);
@@ -29,6 +30,7 @@ function App () {
             const data = localStorage.getItem("contacts");
             const parsedСontacts = JSON.parse(data);            
           if (parsedСontacts?.length) {
+            console.log(parsedСontacts);
               setContacts (parsedСontacts)            
           };
             firstRenderRef.current = false;

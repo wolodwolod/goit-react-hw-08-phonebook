@@ -5,7 +5,8 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import Filter from 'components/Filter';
 import ContactItem from 'components/ContactItem';
 
-import actions from 'redux/actions';
+import { actions } from 'redux/contacts/contacts-slice';
+import { getAllContacts } from 'redux/contacts/contacts-selectors';
 
 
 
@@ -19,7 +20,7 @@ const ContactList = () => {
   
   // Контакты из Store
 
-  const contacts = useSelector(store => store.contacts, shallowEqual);
+  const contacts = useSelector(getAllContacts, shallowEqual);
    
 
 // Добавляем в State "Filter" вводимое значение
