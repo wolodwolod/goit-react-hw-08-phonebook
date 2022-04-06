@@ -1,42 +1,68 @@
-import PropTypes from 'prop-types';
-// import { nanoid } from 'nanoid'
+import React, { useState, useCallback } from 'react';
+
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+
+import Filter from 'components/Filter';
 import ContactItem from 'components/ContactItem';
-// import { memo } from 'react';
+
+import actions from 'redux/actions';
 
 
-const ContactList = ({ contacts, DeleteContact }) => {
-  console.log('rend ContList')
-ContactList.defaultProps = {
-    contacts: []
-}
- 
 
+const ContactList = () => {
+  
+  const dispatch = useDispatch(); 
+  
+  // State "Filter"
+
+  const [filter, setFilter] = useState('');  
+  
+  // Контакты из Store
+
+  const contacts = useSelector(store => store.contacts, shallowEqual);
+   
+
+// Добавляем в State "Filter" вводимое значение
+  
+  const handleFilter = useCallback ( (e) => {
+    setFilter(e.currentTarget.value);
+    }, []);
+
+// Список контактов для рендера
+  
+  const filterContacts = () => {
+    
+    const normalizedFilter = filter.toLowerCase();
+    
+      return filter !== "" ? contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)) : contacts
+    ;
+  };  
+    
+// Удаление контакта    
+  
+  const deleteContact = (id) => {
+    const action = actions.remove(id);
+    dispatch(action);
+  };  
+  
   return (
+    <div>
+    <Filter value={filter} onChange={handleFilter} />
     <ul>
-      {contacts.map(({ id, name, number }) => (
+      {filterContacts().map(({ id, name, number }) => (
         <ContactItem
           key={id}
           id={id}
               name={name}
               number={number}
-              onDelete={() => DeleteContact (id)}
-                
+              onDelete={() => deleteContact (id)}                
         />
       ))}
     </ul>
+    </div>
   );
 };
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-          })
-    ),
-    DeleteContact: PropTypes.func.isRequired,
-  };
 
 export default ContactList;
 
