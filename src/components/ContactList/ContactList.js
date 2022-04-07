@@ -1,69 +1,32 @@
-import React, { useState, useCallback } from 'react';
-
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-
-import Filter from 'components/Filter';
+import PropTypes from 'prop-types';
 import ContactItem from 'components/ContactItem';
 
-import { actions } from 'redux/contacts/contacts-slice';
-import { getAllContacts } from 'redux/contacts/contacts-selectors';
 
-
-
-const ContactList = () => {
+const ContactList = ({ contacts, onDelete }) => {
   
-  const dispatch = useDispatch(); 
-  
-  // State "Filter"
-
-  const [filter, setFilter] = useState('');  
-  
-  // Контакты из Store
-
-  const contacts = useSelector(getAllContacts, shallowEqual);
-   
-
-// Добавляем в State "Filter" вводимое значение
-  
-  const handleFilter = useCallback ( (e) => {
-    setFilter(e.currentTarget.value);
-    }, []);
-
-// Список контактов для рендера
-  
-  const filterContacts = () => {
-    
-    const normalizedFilter = filter.toLowerCase();
-    
-      return filter !== "" ? contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)) : contacts
-    ;
-  };  
-    
-// Удаление контакта    
-  
-  const deleteContact = (id) => {
-    const action = actions.remove(id);
-    dispatch(action);
-  };  
-  
+   ContactList.defaultProps = {
+    contacts: []
+}  
   return (
-    <div>
-    <Filter value={filter} onChange={handleFilter} />
-    <ul>
-      {filterContacts().map(({ id, name, number }) => (
+    
+     <ul>
+      {contacts.map(({ id, name, number }) => (
         <ContactItem
           key={id}
           id={id}
               name={name}
               number={number}
-              onDelete={() => deleteContact (id)}                
+              onDelete={() => onDelete (id)}                
         />
       ))}
     </ul>
-    </div>
+    
   );
 };
+
+ContactList.propTypes = {
+      onDelete: PropTypes.func.isRequired,
+  };
 
 export default ContactList;
 

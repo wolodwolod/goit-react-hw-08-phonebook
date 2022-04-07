@@ -10,11 +10,27 @@ const contactSlice = createSlice({
         { name: 'Annie Copeland', number: '227-91-26', id: nanoid() }
     ],
     reducers: {
-        
-        add: (state, { payload }) => {
-            const newContact = { ...payload, id: nanoid() };
-            return [...state, newContact];
+        add: {
+            reducer: (state, {payload}) => {
+                state.push(payload);
+                //  console.log(payload);
+            },
+            prepare: (data) => {
+                const newContact = {
+                    ...data,
+                    id: nanoid()
+                };
+                // console.log(data);
+                return {
+                    payload: newContact
+                }
+            }
         },
+        
+        // add: (state, { payload }) => {
+        //     const newContact = { ...payload, id: nanoid() };
+        //     return [...state, newContact];
+        // },
         
         remove: (state, { payload }) => {
             const newState = state.filter(item => item.id !== payload);

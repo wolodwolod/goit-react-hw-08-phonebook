@@ -1,22 +1,20 @@
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-
+// import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+// import { getAllContacts } from 'redux/contacts/contacts-selectors';
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import s from './ContactForm.module.css';
 
-import { actions } from 'redux/contacts/contacts-slice';
+// import { actions } from 'redux/contacts/contacts-slice';
 
 
-const ContactForm = () => {
+const ContactForm = ({ onSubmit }) => {
     
   const [formContacts, setFormContacts] = useState({
     formName: '',
     formNumber: '',
   })
   
-  const contacts = useSelector(store => store.contacts, shallowEqual);
-  const dispatch = useDispatch();
-
-
+  
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setFormContacts(prevState => {
@@ -30,33 +28,14 @@ const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
         
-    addContact({ name: formContacts.formName, number: formContacts.formNumber });
+    onSubmit({ name: formContacts.formName, number: formContacts.formNumber });
     setFormContacts({
       formName: '',
       formNumber: '',
     });
   };
   
-  const addContact = (payload) => {
-    
-    const { name, number } = payload;
-    
-    const normalizedInputName = name.toLowerCase();
-    const findName = contacts.find(
-      contact => contact.name.toLowerCase() === normalizedInputName
-    );
-    if (findName) {
-      return alert(`${name} is already in contacts!`);
-    }
-    const findNumber = contacts.find(
-      contact => contact.number === number);
-    if (findNumber) {
-      return alert(`This phone number is already in contacts!`);
-    }
-    
-    const action = actions.add(payload);
-    dispatch(action);
-  };
+  
     
 
   return (
@@ -91,6 +70,10 @@ const ContactForm = () => {
       <button className={s.Form__btn} type="submit">Add contact</button>
     </form>
   );
+}; 
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }; 
 
 export default ContactForm;

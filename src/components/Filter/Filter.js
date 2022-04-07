@@ -3,7 +3,7 @@ import s from './Filter.module.css';
 import { memo } from 'react';
 
 function Filter({ filter, onChange }) {
-  console.log('rend Filter')
+  // console.log('rend Filter')
   return (
     <label className={s.Filter__label}>
       Find contacts by name
