@@ -5,8 +5,11 @@ import Section from 'components/Section';
 import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
-import { getAllContacts } from 'redux/contacts/contacts-selectors';
-import actions from 'redux/contacts/contacts-actions';
+import { getAllContacts, getContactsLoading } from 'redux/contacts/contacts-selectors';
+// import actions from 'redux/contacts/contacts-actions';
+import operations from 'redux/contacts/contacts-operations';
+
+// import { initialState } from "./redux/contacts/contacts-reduser";
 
 
 
@@ -15,15 +18,17 @@ function App () {
   const [filter, setFilter] = useState('');  
   
   const contacts = useSelector(getAllContacts, shallowEqual);
+  const loading = useSelector(getContactsLoading, shallowEqual);
   const dispatch = useDispatch();
   console.log(contacts);
+  // console.log(initialState);
   
   
-  const setContacts = useCallback((payload) => {
-    console.log(payload);
-    const action = actions.set(payload);
-    dispatch(action);
-  }, [dispatch]);  
+  // const setContacts = useCallback((payload) => {
+  //   console.log(payload);
+  //   const action = operations.set(payload);
+  //   dispatch(action);
+  // }, [dispatch]);  
 
   const firstRenderRef = useRef(true);
 
@@ -31,19 +36,21 @@ function App () {
   useEffect(() => {
         if(firstRenderRef.current) {
             // console.log("first  render")
-            const data = localStorage.getItem("contacts");
-            const parsedСontacts = JSON.parse(data);            
-          if (parsedСontacts?.length) {
-            console.log(parsedСontacts);
-              setContacts (parsedСontacts)            
-          };
-            firstRenderRef.current = false;
-        }
-        else {
-            // console.log("second  render")
-            localStorage.setItem("contacts", [JSON.stringify(contacts)]);
+          // setContacts(initialState);
+          const getContacts = () => dispatch(operations.fetch());
+          getContacts();
+        //     const parsedСontacts = JSON.parse(data);            
+        //   if (parsedСontacts?.length) {
+        //     console.log(parsedСontacts);
+        //       setContacts (parsedСontacts)            
+        //   };
+        //     firstRenderRef.current = false;
+        // }
+        // else {
+        //     // console.log("second  render")
+        //     localStorage.setItem("contacts", [JSON.stringify(contacts)]);
         }    
-    }, [contacts, setContacts]);  
+    }, [dispatch]);  
   
   
   const addContact = (payload) => {
@@ -63,13 +70,13 @@ function App () {
       return alert(`This phone number is already in contacts!`);
     }
     
-    const action = actions.add(payload);
+    const action = operations.add(payload);
     dispatch(action);
   }; 
   
   
   const deleteContact = (id) => {
-    const action = actions.remove(id);
+    const action = operations.remove(id);
     dispatch(action);
   };  
 
@@ -96,7 +103,8 @@ function App () {
       </Section>
       
       <Section className='ContactsSection' title='Contacts'>
-         <Filter value={filter} onChange={handleFilter} />
+        <Filter value={filter} onChange={handleFilter} />
+        {loading && <p>...Loading</p>}
         <ContactList contacts={filterContacts ()} onDelete={deleteContact} />        
       </Section>
     </>
