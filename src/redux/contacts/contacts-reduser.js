@@ -1,4 +1,4 @@
-import { combineReducers, createReducer, nanoid } from "@reduxjs/toolkit";
+import { combineReducers, createReducer } from "@reduxjs/toolkit";
 
 import actions from "./contacts-actions";
 

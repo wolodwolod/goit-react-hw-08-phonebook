@@ -50,7 +50,7 @@ const remove = id => {
     const func = async (dispatch) => {
         dispatch(actions.removeRequest());
         try {
-            const result = await services.removeContact(id);
+            await services.removeContact(id);
             dispatch(actions.removeSuccess(id));
         }
         catch (error) {
