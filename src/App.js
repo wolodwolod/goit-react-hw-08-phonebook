@@ -6,7 +6,7 @@ import ContactForm from 'components/ContactForm';
 import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import { getAllContacts } from 'redux/contacts/contacts-selectors';
-import { actions } from 'redux/contacts/contacts-slice';
+import actions from 'redux/contacts/contacts-actions';
 
 
 
@@ -16,6 +16,7 @@ function App () {
   
   const contacts = useSelector(getAllContacts, shallowEqual);
   const dispatch = useDispatch();
+  console.log(contacts);
   
   
   const setContacts = useCallback((payload) => {
@@ -40,7 +41,7 @@ function App () {
         }
         else {
             // console.log("second  render")
-            localStorage.setItem("contacts", JSON.stringify(contacts))
+            localStorage.setItem("contacts", [JSON.stringify(contacts)]);
         }    
     }, [contacts, setContacts]);  
   
@@ -86,7 +87,7 @@ function App () {
     setFilter(e.currentTarget.value);
     }, []);
 
-  
+  console.log(filterContacts());
        
   return (
     <>
