@@ -1,84 +1,94 @@
-import actions from "./contacts-actions";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+// import actions from "./contacts-actions";
 import services from "services/contacts";
 
-const fetch = () => {
-    const func = async (dispatch) => {
-        dispatch(actions.fetchRequest())
+const fetchContacts = createAsyncThunk(
+    "contacts/fetch",
+    async (_, thunkAPI) => {
         try {
-            const allContacts = await services.getContacts();
-            dispatch(actions.fetchSuccess(allContacts));
+            const result = await services.getContacts();
+            return result;
         } catch (error) {
-            dispatch(actions.fetchError(error));
+            return thunkAPI.rejectWithValue(error)
         }
-    };
-    return func;
-}; 
+    }
+);
 
-const add = data => {
-    const func = async (dispatch, getState) => {
-        const { contacts } = getState();
-        console.log(contacts);
-        const { items } = contacts;
-        console.log(items);
-        
-        const normalizedInputName = data.name.toLowerCase();
-       const findName = items.find(
-      contact => contact.name.toLowerCase() === normalizedInputName
-    );
-    if (findName) {
-      return alert(`${data.name} is already in contacts!`);
-        };
-    const findNumber = items.find(
-      contact => contact.number === data.number);
-    if (findNumber) {
-      return alert(`This phone number is already in contacts!`);
-        };
-        
-        dispatch(actions.addRequest());
+// const fetch = () => {
+//     const func = async (dispatch) => {
+//         dispatch(actions.fetchRequest())
+//         try {
+//             const allContacts = await services.getContacts();
+//             dispatch(actions.fetchSuccess(allContacts));
+//         } catch (error) {
+//             dispatch(actions.fetchError(error));
+//         }
+//     };
+//     return func;
+// };
+const addContact = createAsyncThunk(
+    "contacts/add",
+    async (data, thunkAPI) => {
         try {
-            const newContact = await services.addContact(data);
-            dispatch(actions.addSuccess(newContact));
+            const result = await services.addContact(data);
+            return result;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
         }
-        catch (error) {
-            dispatch(actions.addError(error));
-        }
-    };
-    return func;
-};
+    },
+    // {
+    //     condition: (data, { getState }) => {
+    //       const { contacts } = getState();
+    //     // console.log(contacts);
+    //     const { items } = contacts;
+    //     // console.log(items);        
+    //     const normalizedInputName = data.name.toLowerCase();
+    //    const findName = items.find(
+    //   contact => contact.name.toLowerCase() === normalizedInputName
+    // );
+    // if (findName) {
+    //   alert(`${data.name} is already in contacts!`);
+    // return false;
+    //     };
+    // const findNumber = items.find(
+    //   contact => contact.number === data.number);
+    // if (findNumber) {
+    //   alert(`This phone number is already in contacts!`);
+    // return false;
+    //     };  
+    //     }
+    // }
+);
 
-const remove = id => {
-    const func = async (dispatch) => {
-        dispatch(actions.removeRequest());
+const removeContact = createAsyncThunk(
+    "contacts/remove",
+    async (id, thunkAPI) => {
         try {
             await services.removeContact(id);
-            dispatch(actions.removeSuccess(id));
+            return id;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
         }
-        catch (error) {
-            dispatch(actions.removeError());
-        };
-    };
-    return func;
-};
-
-// const set = data => {
-//     const func = async (dispatch) => {              
-//         dispatch(actions.setRequest());
+    }
+) 
+// const removeContact = id => {
+//     const func = async (dispatch) => {
+//         dispatch(actions.removeRequest());
 //         try {
-//             const newContacts = await services.setContacts(data);
-//             dispatch(actions.setSuccess(newContacts));
+//             await services.removeContact(id);
+//             dispatch(actions.removeSuccess(id));
 //         }
 //         catch (error) {
-//             dispatch(actions.addError(error));
-//         }
+//             dispatch(actions.removeError());
+//         };
 //     };
 //     return func;
 // };
 
 const operations = {
-    fetch,
-    add,
-    remove,
-    // set
+    fetchContacts,
+    addContact,
+    removeContact   
 }
 
 export default operations;

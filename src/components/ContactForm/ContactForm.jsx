@@ -1,10 +1,7 @@
-// import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-// import { getAllContacts } from 'redux/contacts/contacts-selectors';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import s from './ContactForm.module.css';
 
-// import { actions } from 'redux/contacts/contacts-slice';
 
 
 const ContactForm = ({ onSubmit }) => {
@@ -33,9 +30,7 @@ const ContactForm = ({ onSubmit }) => {
       formName: '',
       formNumber: '',
     });
-  };
-  
-  
+  };  
     
 
   return (
