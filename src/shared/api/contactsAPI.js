@@ -28,11 +28,11 @@ export const removeContact = async (id) => {
 //     return result;
 // };
 
-const services = {
+const contactsAPI = {
     getContacts,
     addContact,
     removeContact,
     // setContacts
 };
 
-export default services;
+export default contactsAPI;
