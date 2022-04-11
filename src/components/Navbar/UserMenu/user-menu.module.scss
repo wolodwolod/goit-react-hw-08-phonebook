@@ -1,0 +1,21 @@
+.user_menu {
+    display: flex;
+    align-items: baseline
+}
+
+.button_logout {
+    margin-left: 20px;
+    width: 50%;
+    height: 2.2rem;
+    padding: 0.25rem;
+    border: 3 solid #e0e8e5;
+    border-radius: 8px;
+    outline: none;
+
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #597387;
+    cursor: pointer;
+    overflow: hidden;
+}

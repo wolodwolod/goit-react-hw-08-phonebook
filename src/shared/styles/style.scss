@@ -1,0 +1,38 @@
+@import "reset";
+@import "fonts";
+
+body {
+    font-family: 'Lato', sans-serif;
+    overflow-y: scroll;
+    background-color: rgb(250, 240, 230);
+}
+
+h1 {
+font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+h2 {
+font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+h3 {
+font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+h4 {
+font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.container {
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.list-item {
+    padding: 5px;
+}
