@@ -6,11 +6,17 @@ import ContactList from 'components/ContactList';
 import Filter from 'components/Filter';
 import { getAllContacts, getContactsLoading } from 'redux/contacts/contacts-selectors';
 
+import { getIslogin } from "../../redux/auth/auth-selectors";
+
 import operations from 'redux/contacts/contacts-operations';
 
 import s from "./contact-page.module.scss"
 
 const ContactPage = () => {
+
+const isLogin = useSelector(getIslogin, shallowEqual);
+    console.log(isLogin);
+
     const [filter, setFilter] = useState('');
   
     const contacts = useSelector(getAllContacts, shallowEqual);
@@ -68,7 +74,7 @@ const ContactPage = () => {
         setFilter(e.currentTarget.value);
     }, []);
 
-    console.log(filterContacts());
+    // console.log(filterContacts());
        
     return (
        <main>

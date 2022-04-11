@@ -13,19 +13,20 @@ import s from "./log-form.module.scss"
 const LoginForm = ()=> {
     const [form, setForm] = useState({...initialState});
     const isLogin = useSelector(getIslogin, shallowEqual);
+    console.log(isLogin);
 
     const navigate = useNavigate();
 
-    const location = useLocation();
+    // const location = useLocation();
 
     const dispatch = useDispatch();
 
     useEffect(()=> {
         if(isLogin) {
-            const from = location.state?.from || "/my-books";
-            navigate(from);
+            // const from = location.state?.from || "/contacts";
+            navigate("/contacts");
         }
-    }, [isLogin, location.state?.from, navigate]);
+    }, [isLogin, navigate]);
 
     const handleChange = ({target}) => {
         const {name, value} = target;
@@ -38,7 +39,8 @@ const LoginForm = ()=> {
     const handleSubmit = (e)=> {
         e.preventDefault();
         dispatch(login(form));
-        setForm({...initialState});
+        setForm({ ...initialState });
+        
     }
 
     return (

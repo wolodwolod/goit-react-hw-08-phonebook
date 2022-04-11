@@ -36,28 +36,28 @@ const addContact = createAsyncThunk(
             return thunkAPI.rejectWithValue(error);
         }
     },
-    // {
-    //     condition: (data, { getState }) => {
-    //       const { contacts } = getState();
-    //     // console.log(contacts);
-    //     const { items } = contacts;
-    //     // console.log(items);        
-    //     const normalizedInputName = data.name.toLowerCase();
-    //    const findName = items.find(
-    //   contact => contact.name.toLowerCase() === normalizedInputName
-    // );
-    // if (findName) {
-    //   alert(`${data.name} is already in contacts!`);
-    // return false;
-    //     };
-    // const findNumber = items.find(
-    //   contact => contact.number === data.number);
-    // if (findNumber) {
-    //   alert(`This phone number is already in contacts!`);
-    // return false;
-    //     };  
-    //     }
-    // }
+    {
+        condition: (data, { getState }) => {
+          const { contacts } = getState();
+        // console.log(contacts);
+        const { items } = contacts;
+        // console.log(items);        
+        const normalizedInputName = data.name.toLowerCase();
+       const findName = items.find(
+      contact => contact.name.toLowerCase() === normalizedInputName
+    );
+    if (findName) {
+      alert(`${data.name} is already in contacts!`);
+    return false;
+        };
+    const findNumber = items.find(
+      contact => contact.number === data.number);
+    if (findNumber) {
+      alert(`This phone number is already in contacts!`);
+    return false;
+        };  
+        }
+    }
 );
 
 const removeContact = createAsyncThunk(

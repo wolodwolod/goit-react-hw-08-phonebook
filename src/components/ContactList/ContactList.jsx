@@ -3,6 +3,8 @@ import ContactItem from 'components/ContactItem';
 
 
 const ContactList = ({ contacts, onDelete }) => {
+
+  console.log(contacts);
   
    ContactList.defaultProps = {
     contacts: []
