@@ -85,7 +85,7 @@ const isLogin = useSelector(getIslogin, shallowEqual);
       
                 <Section className={s.contactsSection} title='Contacts'>
                 <Filter value={filter} onChange={handleFilter} />
-                <div style={{ height: '10px' }}>
+                <div style={{ height: '20px' }}>
                     {loading && <p>...Loading</p>}
                 </div>
                 <ContactList contacts={filterContacts()} onDelete={deleteContact} />

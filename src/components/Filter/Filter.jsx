@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import s from './Filter.module.css';
+import s from './filter.module.scss';
 import { memo } from 'react';
 
 function Filter({ filter, onChange }) {

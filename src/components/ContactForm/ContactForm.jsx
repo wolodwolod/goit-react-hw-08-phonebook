@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import s from './ContactForm.module.css';
+import s from "./contact-form.module.scss";
 
 
 
