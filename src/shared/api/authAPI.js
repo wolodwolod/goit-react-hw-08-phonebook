@@ -31,8 +31,10 @@ const logout = async () => {
 }
 
 const getCurrent = async (token) => {
+    console.log(token)
     addToken(token);
-    const {data: result} = await axios.get("/users/current");
+    const { data: result } = await axios.get("/users/current");
+    console.log(result);
     return result;
 }
 

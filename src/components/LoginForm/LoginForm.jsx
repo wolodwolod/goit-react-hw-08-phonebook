@@ -13,20 +13,19 @@ import s from "./log-form.module.scss"
 const LoginForm = ()=> {
     const [form, setForm] = useState({...initialState});
     const isLogin = useSelector(getIslogin, shallowEqual);
-    console.log(isLogin);
 
     const navigate = useNavigate();
 
-    // const location = useLocation();
+    const location = useLocation();
 
     const dispatch = useDispatch();
 
     useEffect(()=> {
         if(isLogin) {
-            // const from = location.state?.from || "/contacts";
-            navigate("/contacts");
+            const from = location.state?.from || "/contacts";
+            navigate(from);
         }
-    }, [isLogin, navigate]);
+    }, [isLogin, location.state?.from, navigate]);
 
     const handleChange = ({target}) => {
         const {name, value} = target;
