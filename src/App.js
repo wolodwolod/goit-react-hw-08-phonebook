@@ -28,15 +28,16 @@ function App() {
       <Navbar />
       <Routes>
             
-                <Route path="/" element={<HomePage />} />
-                <Route element={<PublicRoute />}>
+                <Route path="/" exact element={<HomePage />} />
+                <Route element={<PrivateRoute />}>
+                    <Route path="/contacts" element={<ContactPage />} />
+                                   </Route>
+        
+        <Route element={<PublicRoute />}>
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
                 </Route>
-                <Route element={<PrivateRoute />}>
-                    <Route path="/contacts" element={<ContactPage />} />
-                   
-                </Route>
+                
                 <Route path="*" element={<Navigate to="/" replace />} />
             
         </Routes>

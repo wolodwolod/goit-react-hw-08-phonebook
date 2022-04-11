@@ -19,6 +19,7 @@ export const login = createAsyncThunk(
     async (data, { rejectWithValue }) => {
         try {
             const result = await authAPI.login(data);
+            console.log(result);
             return result;
         } catch (error) {
             return rejectWithValue(error);
@@ -47,6 +48,7 @@ export const current = createAsyncThunk(
             //     return rejectWithValue("Not autorization");
             // }
             const result = await authAPI.getCurrent(auth.token);
+            console.log(result);
             return result;
         } catch (error) {
             return rejectWithValue(error);

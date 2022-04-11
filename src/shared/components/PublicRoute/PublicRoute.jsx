@@ -6,7 +6,7 @@ const PublicRoute = ()=> {
     const isLogin = useAuth();
 
     if(isLogin) {
-        return <Navigate to="/my-books" />
+        return <Navigate to="/contacts" />
     }
     return <Outlet />
 };
