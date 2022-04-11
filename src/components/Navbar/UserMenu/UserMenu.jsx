@@ -7,7 +7,8 @@ import { getUser } from "../../../redux/auth/auth-selectors";
 import s from "./user-menu.module.scss"
 
 const UserMenu = ()=> {
-    const {email} = useSelector(getUser, shallowEqual);
+    const { email } = useSelector(getUser, shallowEqual);
+    console.log(email);
 
     const dispatch = useDispatch();
 
